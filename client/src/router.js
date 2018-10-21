@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import ArticlesSection from './views/ArticlesSection.vue'
 import Loginpage from './views/Loginpage.vue'
+import Homepage from './views/Homepage.vue'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'Loginpage',
       component: Loginpage
+    },
+    {
+      path: '/home',
+      name: 'Homepage',
+      component: Homepage
     },
     {
       path: '/about',

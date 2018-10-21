@@ -1,20 +1,55 @@
 <template>
   <div>
-    <p>create an account</p>
+    <p>{{message}}</p>
     <form class="form">
-      <input type="text" placeholder="Username" required>
-      <input type="text" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit" id="login-button">Register</button>
-        <p></p>
-        <button type="submit" id="login-button">Login</button>
+      <input v-model="name" type="text" placeholder="username" required>
+      <input v-model="email" type="text" placeholder="email" required>
+      <input v-model="password" type="password" placeholder="password" required>
+      <button v-on:click="registering" type="submit">register</button>
+      <p></p>
+      <button v-on:click="toggleshowlogin" type="button">login</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Register'
+  name: 'Register',
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      message: 'create an account'
+    }
+  },
+  methods: {
+    registering() {
+      self = this
+      axios({
+        method:'POST',
+        url:'http://localhost:3000/register',
+        data: {
+          name: self.name,
+          email: self.email,
+          password: self.password
+        }
+      })
+        .then( response => {
+          this.message = `${this.name} has successfully registered! 
+                          Please click "login" to enter our website`
+          console.log(response);
+          
+        })
+        .catch(err => {
+          console.log(err);
+          
+        })
+    },
+    toggleshowlogin() {
+      this.$emit('togglelogintrue', true)
+    }
+  }
 }
 </script>
 
