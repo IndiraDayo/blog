@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="container">
       <h1>Welcome to <img src="../assets/New Project (6).png" width="100" class="align-top" alt="">!</h1>
-      <Login v-if="showlogin" v-on:toggleloginfalse="toggleshowlogin" ></Login>
+      <Login v-if="showlogin" v-on:toggleloginfalse="toggleshowlogin" @getuserdata="receiveuserdata"></Login>
       <Register v-if="!showlogin" v-on:togglelogintrue="toggleshowlogin"></Register>
       
     </div>
@@ -41,12 +41,24 @@ export default {
     },
     data() {
       return {
-        showlogin: true
+        showlogin: true,
+        userdata: {}
       }
     },
     methods: {
       toggleshowlogin(value) {
         this.showlogin = value
+      },
+      receiveuserdata(data) {
+        console.log('ini datanya di loginpage ' + data);
+        
+        this.userdata = data
+      }
+      
+    },
+    watch: {
+      userdata(val) {
+        this.$emit('receiveuserdata', val)
       }
     }
 }

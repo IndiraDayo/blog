@@ -8,7 +8,7 @@
         <!-- <div class="header-right"> -->
           <div>
             <button>Chat</button>
-            <button class="my-left-margin">Logout</button>
+            <button v-on:click="logout" class="my-left-margin">Logout</button>
           </div>
         <!-- </div> -->
       </div>
@@ -18,8 +18,13 @@
 <script>
 export default {
     name: 'Navbar',
-    props: {
-        msg: String
+    methods : {
+      logout() {
+        console.log('aku, logot, ke pencet');
+        
+        localStorage.removeItem('token')
+        this.$router.push({name: 'Loginpage'})
+      }
     }
 }
 </script>

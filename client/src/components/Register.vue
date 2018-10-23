@@ -5,6 +5,7 @@
       <input v-model="name" type="text" placeholder="username" required>
       <input v-model="email" type="text" placeholder="email" required>
       <input v-model="password" type="password" placeholder="password" required>
+      <input v-model="image" type="text" placeholder="image">
       <button v-on:click="registering" type="submit">register</button>
       <p></p>
       <button v-on:click="toggleshowlogin" type="button">login</button>

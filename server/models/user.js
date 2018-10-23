@@ -18,7 +18,15 @@ const userScheme = new Schema({
     image: {
         type: String,
         default: ''
-    }
+    },
+    articles: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Article'
+    }],
+    comments: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Comment'
+    }]
 }, {
     timestamps: true
 });

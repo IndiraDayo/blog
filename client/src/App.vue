@@ -14,6 +14,34 @@
 
 export default {
 
+  data() {
+    return {
+      user: {
+        name: '',
+        email: '',
+        password: '',
+        image: '',
+        articles: [],
+        comments: []
+      },
+      article: {
+        title: '',
+        description: '',
+        image: '',
+        author_id: '',
+        like: '',
+        dislike: '',
+        comments: []
+      },
+      comment: {
+        user_comment: '',
+        user_id: '',
+        article_id: ''
+      },
+
+    }
+  }
+
 }
 </script>
 

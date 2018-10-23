@@ -7,18 +7,19 @@ const hash = require('bycjwt'),
 module.exports = {
 
   signUp: (req, res) => {
-    // console.log('Body-----', req.body)
+    console.log('Body-----', req.body)
     let objUser = {
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      image: req.body.image
     }
-    // console.log('OBJ USER-----', objUser)
+    console.log('OBJ USER-----', objUser)
     let user = new User(objUser)
     user.save()
       .then( result => {
-        // console.log('Masuk');
-        // console.log('USER------',user);
+        console.log('Masuk');
+        console.log('USER------',user);
         
         res.status(201).json({result})
       })
@@ -37,7 +38,8 @@ module.exports = {
           process.env.TOKEN = hash.jwtencode({
             _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            image:user.image
           })
           res.status(200).json({
             name: user.name,
@@ -52,5 +54,11 @@ module.exports = {
       .catch(err => {
         res.status(500).json({err})
       })
-  }  
+  },
+  
+  getCredentials(req, res) {
+    console.log('ini token ---->' + req.headers.token);
+    
+    res.status(200).json({data: hash.jwtdecode(req.headers.token)})
+  } 
 }

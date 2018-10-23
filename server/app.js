@@ -7,7 +7,7 @@ const express = require('express'),
     app = express()
 
 const userRouter = require('./routes/user'),
-      todoRouter = require('./routes/todo')
+      articleRouter = require('./routes/article')
 
 mongoose.connect('mongodb://localhost:27017/blog', { useNewUrlParser: true});
 
@@ -18,7 +18,7 @@ app
     .use(cors())
 
     .use('/', userRouter)
-    // .use('/todo', todoRouter)
+    .use('/article', articleRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
