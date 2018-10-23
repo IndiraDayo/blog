@@ -87,13 +87,13 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               
-              <div class="modal-body ">
+              <div class="modal-body " align="center">
                   <p class="my-heading">{{singlearticle.title}}</p>
                     <img class="my-article-image" v-bind:src="singlearticle.image" alt="Card image cap">
-                    <p>{{singlearticle.description}}</p>
+                    <p class="my-width-1 text-justify">{{singlearticle.description}}</p>
                     <hr>
                     <p>comment:</p>
-                    <input v-model="addimage" type="text" class="form-control">
+                    <input type="text" class="form-control">
                     <hr>
                     <button type="submit" class="btn btn-primary">Add Comment</button>
 
@@ -109,19 +109,19 @@
             <div class="modal-content">
               
               <div class="modal-body ">
-                  <p class="my-heading">Save Article</p>
+                  <p class="my-heading">Edit Article</p>
                   <hr>
                   <form class="form">
                     <p>title:</p>
-                    <input v-model="addtitle" type="text" class="form-control" v-bind:placeholder="singlearticle.title" required>
+                    <input v-model="addtitle" type="text" class="form-control" required>
 
                     <p>about:</p>
-                    <textarea v-model="adddescription" class="form-control" id="message-text" v-bind:placeholder="singlearticle.description" required></textarea>
+                    <textarea v-model="adddescription" class="form-control" id="message-text" required></textarea>
                     <hr>
                     <p>image link:</p>
-                    <input v-model="addimage" type="text" class="form-control" v-bind:placeholder="singlearticle.image">
+                    <input v-model="addimage" type="text" class="form-control">
                     <hr>
-                    <button v-on:click="addarticle" type="submit" class="btn btn-primary" data-dismiss="modal">Save Article</button>
+                    <button v-on:click="editarticle(singlearticle._id)" type="submit" class="btn btn-primary" data-dismiss="modal">Save Article</button>
                   </form>
               </div>
             </div>
@@ -198,6 +198,11 @@ export default {
       })
         .then(article => {
           this.singlearticle = article.data.data
+
+          this.addtitle= this.singlearticle.title
+          this.adddescription = this.singlearticle.description
+          this.addimage= this.singlearticle.image
+
           console.log('ini satu article ' + JSON.stringify(article));
           
         })
@@ -216,6 +221,27 @@ export default {
       axios({
         method: 'POST',
         url: 'http://localhost:3000/article/add',
+        data: {
+          title: self.addtitle,
+          description: self.adddescription,
+          image: self.addimage
+        }
+      })
+        .then( response => {
+          console.log('ini di buat article', JSON.stringify(response));
+          
+        })
+        .catch(err => {
+          console.log('err di buat article', err);
+          
+        })
+    },
+    editarticle(id) {
+      let self = this
+
+      axios({
+        method: 'PUT',
+        url: `http://localhost:3000/article/update/${id}`,
         data: {
           title: self.addtitle,
           description: self.adddescription,
